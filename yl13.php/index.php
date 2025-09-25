@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PHP13</title>
+    <title>Harjutus13</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -50,7 +50,24 @@
                 closedir($asukoht);
             }
         ?>
-    </div>
+
+    <h1>Harjutus 14</h1>
+
+<?php
+$directory = 'pildid/';
+
+$images = glob($directory . '*.{jpg,jpeg}', GLOB_BRACE);
+
+if (count($images) > 0) {
+    $randomImage = $images[array_rand($images)];
+    
+    // Parandatud img element
+    echo '<img src="' . $randomImage . '" alt="Random Image" width="200" height="200">';
+} else {
+    echo 'ei ole pilti siin.';
+}
+?>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
