@@ -10,6 +10,7 @@
    <h1>Harjutus 05</h1>
 
 <?php
+//Riigid
     $riigid = array("Indonesia","Canada","Kyrgyzstan","Germany","Philippines","Philippines","Canada","Philippines","South Sudan","Brazil","Democratic Republic of the Congo","Indonesia","Syria","Sweden","Philippines","Russia","China","Japan","Brazil","Sweden","Mexico","France","Kazakhstan","Cuba","Portugal","Czech Republic");
     $pikimriik="";
     foreach($riigid as $riik){
@@ -19,14 +20,14 @@
     }
     echo"pikim riik on: ".$pikimriik."<br>";
 
-    
+//Hiinanimed
     $hiinanimed = array("瀚聪","月松","雨萌","展博","雪丽","哲恒","慧妍","博裕","宸瑜","奕漳","思宏","伟菘","彦歆","睿杰","尹智","琪煜","惠茜","晓晴","志宸","博豪","璟雯","崇杉","俊誉","军卿","辰华","娅楠","志宸","欣妍","明美");
             sort($hiinanimed);
             echo $hiinanimed[0], "<br>";
             $viimanehiinanimi = count($hiinanimed)-1;
             echo $hiinanimed[$viimanehiinanimi];
 
-    
+//google
      $google = array("Feake", "Bradwell", "Dreger", "Bloggett", "Lambole", "Daish", "Lippiett", "Blackie", "Stollenbeck", "Houseago", "Dugall", "Sprowson", "Kitley", "Mcenamin", "Allchin", "Doghartie", "Brierly", "Pirrone", "Fairnie", "Seal", "Scoffins", "Galer", "Matevosian", "DeBlase", "Cubbin", "Izzett", "Ebi", "Clohisey", "Prater", "Probart", "Samwaye", "Concannon", "MacLure", "Eliet", "Kundt", "Reyes");
 
             if (isset($_GET['googl'])) {
@@ -37,15 +38,17 @@
                     echo '<div class="alert alert-danger" role="alert">Pole sellist nime!</div>';
                 }
             }
-          
-
+       
+?>
     <form action="#">
         Eemalda firma: <input type = "text" name= "eemalda">
         <input type="submit" value="Eemalda firma">
     </form>
-<br>
-
 <?php
+//firmad
+echo"<br>";
+
+
 $firmad = array("Kimia","Mynte","Voomm","Twiyo","Layo","Talane","Gigashots","Tagchat","Quaxo","Voonyx","Kwilith","Edgepulse","Eidel","Eadel","Jaloo","Oyope","Jamia");
 if(isset($_GET["eemalda"])) {
     $kustuta_firma = $_GET["eemalda"];
@@ -58,6 +61,7 @@ foreach ($firmad as $firma) {
 ?>
 
 <?php
+//autod
     $cars = array("Subaru","BMW","Acura","Mercedes-Benz","Lexus","GMC","Volvo","Toyota","Volkswagen","Volkswagen","GMC","Jeep","Saab","Hyundai","Subaru","Mercedes-Benz",
 "Honda","Kia","Mercedes-Benz","Chevrolet","Chevrolet","Porsche","Buick","Dodge","GMC","Dodge","Nissan","Dodge","Jaguar","Ford","Honda","Toyota","Jeep",
 "Kia","Buick","Chevrolet","Subaru","Chevrolet","Chevrolet","Pontiac","Maybach","Chevrolet","Plymouth","Dodge","Nissan","Porsche","Nissan","Mercedes-Benz",
@@ -113,7 +117,22 @@ foreach ($vins as $vin) {
 }
 
 ?>
+
+    <?php
+        echo "<br>";
+        echo "<br>";
+        $pildid = array("img/prentice.jpg","img/freeland.jpg","img/peterus.jpg","img/devlin.jpg","img/gabriel.jpg","img/pete.jpg");
+        echo "<img src=$pildid[2] alt=prentice>", "<br>", "<br>";
+        foreach($pildid as $pilt) {
+            echo "<img src=$pilt alt=prentice>";
+        }
+        echo "</div>";
+        echo "<div class='row'>";
+            foreach($pildid as $pilt) {
+                echo "<div class='col-sm-2'><img src=$pilt alt=prentice></div>";
+        }
+            echo "</div>";
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
-
 </html>
