@@ -1,67 +1,37 @@
 <!doctype html>
-<html lang="et">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Harjutus8</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   </head>
   <body>
-    <?php
-$kataloog = 'pildid';
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_FILES['minu_fail']['name'])) {
-        $sinu_faili_nimi = $_FILES['minu_fail']['name'];
-        $ajutine_fail = $_FILES['minu_fail']['tmp_name'];
-        $faili_tyyp = strtolower(pathinfo($sinu_faili_nimi, PATHINFO_EXTENSION));
-
-        if ($faili_tyyp == 'jpg' || $faili_tyyp == 'jpeg') {
-            $faili_koht = $kataloog . '/' . $sinu_faili_nimi;
-
-            if (!file_exists($faili_koht) && move_uploaded_file($ajutine_fail, $faili_koht)) {
-                echo 'Said tehtud :P<br>';
-            } else {
-             echo 'ebaonnestus<br>';
-            }
-        } else {
-            echo 'Pole lubatud failitüüp!<br>';
-        }
-    }
-}
-
-if ($asukoht = opendir($kataloog)) {
-    while ($rida = readdir($asukoht)) {
-        if ($rida != '.' && $rida != '..') {
-            echo '<a href= "' . $kataloog . '/' . $rida . '" target="_blank">' . $rida . '</a><br>';
-            echo '<a href="' . $kataloog . '/' . $rida . '" target="_blank"><img src="' . $kataloog . '/' . $rida . '" width="100" height="100" style="margin:5px"></a>';
-        }
-    }
-    closedir($asukoht);
-}
-?>
-<form action="" method="post" enctype="multipart/form-data">
-    <input type="file" name="minu_fail"><br>
-    <input type="submit" value="Lae üles!">
-
-
-
-    <h2>Suvaka pildi kuvamine</h2>
-
 <?php
-$directory = 'pildid/';
+    date_default_timezone_set('Europe/Tallinn');
+    echo "Praegu on " . date('d.F.Y') ."<br>";
+    echo "Kellaaeg on " . date("h:i:sa") ."<br>";
 
+    $vanus = "2008-07-02";
+    $kuupaev = date("Y-m-d");
+    $hetkenevanus = new DateTime($vanus);
+    $hetkenekuup = new DateTime($kuupaev);
+    $vahe = $hetkenekuup->diff($hetkenevanus);
+    $aasta = $vahe->y;
+    $kuu = $vahe->m;
+    $paev = $vahe->d;
 
-$images = glob($directory . '*.{jpg,jpeg}', GLOB_BRACE);
+    echo "Vanus: $aasta aastat, $kuu kuud ja $paev päeva.". "<br>";
 
-if (count($images) > 0) {
-    
-    $randomImage = $images[array_rand($images)];
-    
-    echo '<img src="' . $randomImage . '" alt="Random Image" /width="200" height="200">';
-} else {
-    echo 'Pilti pole!';
-}
+    $tana = new DateTime("2025-09-19");
+    $kooliaastalopp = new DateTime("2026-05-31");
+
+    $vahe = $tana->diff($kooliaastalopp);
+    $paevadeArv = $vahe->days;
+
+    echo "Käesoleva kooliaasta lõpuni on jäänud $paevadeArv päeva!";
+
 ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
 </html>
