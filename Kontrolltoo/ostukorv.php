@@ -1,47 +1,40 @@
-<?php
-session_start();
-include "lisa/header.php";
+<?php $pageTitle = 'Ostukorv - Muusikapood'; $currentPage = 'cart'; include 'header.php'; ?>
 
-$_SESSION['cart'] ??= [];
+    <div class="container my-5">
+        <h2>Ostukorv</h2>
+        <?php
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+            echo '<p>Ostukorv on tühi.</p>';
+        } else {
+            $products = [];
+            if (($handle = fopen('instruments.csv', 'r')) !== false) {
+                fgetcsv($handle, 1000, ';');
+                while (($data = fgetcsv($handle, 1000, ';')) !== false) {
+                    $products[] = ['name' => $data[0], 'price' => $data[1], 'category' => $data[2]];
+                }
+                fclose($handle);
+            }
+            $total = 0;
+            echo '<ul class="list-group">';
+            foreach ($_SESSION['cart'] as $index) {
+                if (isset($products[$index])) {
+                    $product = $products[$index];
+                    echo '<li class="list-group-item">' . htmlspecialchars($product['name']) . ' - ' . htmlspecialchars($product['price']) . ' EUR</li>';
+                    $total += floatval($product['price']);
+                }
+            }
+            echo '</ul>';
+            echo '<p class="mt-3"><strong>Kokku: ' . number_format($total, 2) . ' EUR</strong></p>';
+            echo '<a href="index.php" class="btn btn-secondary">Jätka ostlemist</a>';
+        }
+        if (isset($_POST['add_to_cart'])) {
+            $index = intval($_POST['add_to_cart']);
+            if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
+            $_SESSION['cart'][] = $index;
+            header('Location: cart.php');
+            exit;
+        }
+        ?>
+    </div>
 
-if (isset($_GET['add'])) {
-  $_SESSION['cart'][] = [
-    'name' => $_GET['add'],
-    'price' => $_GET['price']
-  ];
-}
-
-if (isset($_GET['clear'])) {
-  $_SESSION['cart'] = [];
-}
-?>
-
-<h1>Ostukorv</h1>
-
-<?php if (empty($_SESSION['cart'])): ?>
-  <p>Ostukorv on tühi.</p>
-<?php else: ?>
-<table class="table">
-<tr><th>Toode</th><th>Hind (€)</th></tr>
-
-<?php
-$total = 0;
-foreach ($_SESSION['cart'] as $item):
-$total += $item['price'];
-?>
-<tr>
-  <td><?= htmlspecialchars($item['name']) ?></td>
-  <td><?= $item['price'] ?></td>
-</tr>
-<?php endforeach; ?>
-
-<tr>
-  <th>Kokku</th>
-  <th><?= $total ?> €</th>
-</tr>
-</table>
-
-<a href="?clear=1" class="btn btn-danger">Tühjenda ostukorv</a>
-<?php endif; ?>
-
-<?php include "lisa/footer.php"; ?>
+<?php include 'footer.php'; ?>
